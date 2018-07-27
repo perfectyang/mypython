@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import RequestException
+import threading
 def getUrl(url):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'
@@ -27,21 +28,28 @@ config = {
     "pageMaxNum":"20",
     "parseURL":"http://vip.jlsprh.com/index.php?url="
 }
-for i in range(20, 50):
-    result = allPage(i)
-    if result:
-        site = result.find_all(class_="site-piclist_pic")
-        for siteLink in site:
-            aLink = siteLink.find('a')
-            if aLink:
-               data.append({
-                 'title': aLink.get('title'),
-                 'link': aLink.get('href'),
-                 'sourceLink': config['parseURL']+aLink.get('href'),
-                 'imgUrl': aLink.find('img').get('src')
-               })
-print('data', data)
-# with open('moive.txt', 'w+') as f:
-#     f.write(str(data))
-with open('moive2.js', 'w+') as f:
-    f.write(str(data))
+
+def main():
+    for i in range(50, 100):
+        result = allPage(i)
+        if result:
+            site = result.find_all(class_="site-piclist_pic")
+            for siteLink in site:
+                aLink = siteLink.find('a')
+                if aLink:
+                   data.append({
+                     'title': aLink.get('title'),
+                     'link': aLink.get('href'),
+                     'sourceLink': config['parseURL']+aLink.get('href'),
+                     'imgUrl': aLink.find('img').get('src')
+                   })
+    print('data', data)
+    # with open('moive.txt', 'w+') as f:
+    #     f.write(str(data))
+    with open('moive3.js', 'w+') as f:
+        f.write(str(data))
+
+if __name__ == '__main__':
+    t1 = threading.Thread(target=main)
+    t1.start()
+    t1.join()
