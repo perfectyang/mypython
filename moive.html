@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #moivelist {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .box {
+      width: 200px;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+    <div id="moivelist"></div>
+
+    <script src="./moive.js"></script>
+    <script src="./moive2.js"></script>
+    <script type="text/javascript">
+      console.log('moiveList', moiveList)
+      var content = document.getElementById('moivelist')
+      var moiveList = moiveList.concat(list2)
+      for (var i = 0; i < moiveList.length; i++) {
+        var currentItem = moiveList[i]
+        var Div = document.createElement('div')
+        Div.className="box"
+        Div.innerHTML = '<p><a href="'+currentItem['sourceLink']+'" target="_blank"><img src="http://'+currentItem['imgUrl']+'"/></a></p><p>'+currentItem['title']+'</p>'
+        content.appendChild(Div)
+      }
+
+
+    </script>
+
+</body>
+</html>

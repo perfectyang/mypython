@@ -1,0 +1,34 @@
+#!/sur/bin/python
+#conding=utf-8
+import requests
+import os
+from bs4 import BeautifulSoup
+
+imgPath = r'/Users/perfectyang/Desktop/project/learn/py3'
+response = requests.get(url='http://www.soouya.com/')
+response.encoding = response.apparent_encoding
+bs = BeautifulSoup(response.text, features='html.parser')
+print('bxxx', bs.prettify())
+bs_obj = bs.find(id="page")
+li_list = bs_obj.find_all('div')
+print('li_list', li_list)
+# for i in li_list:
+#     a = i.find('a')
+#     if a:
+#         # print('aaaa', a)
+#         img = a.find('img').attrs.get('src')
+#         print('img', img)
+# for i in li_list:
+#     a = i.find('a')
+#     if a:
+#         txt = a.find('h3').text
+#         print(a.find('img').attrs.get('src'))
+#         # requests.get('url').content返回的是字节
+#         imgContent = requests.get(a.find('img').attrs.get('src')).content
+#         import uuid
+#         if not os.path.isdir(imgPath):
+#             os.mkdir(imgPath)
+#         else:
+#             imgUrl = str(uuid.uuid4()) + '.jpg'
+#             with open(os.path.join(imgPath, imgUrl), 'wb') as f:
+#                 f.write(imgContent)
