@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import RequestException
 from threading import Thread as multiprocessline
+
+
 class webScrawer:
     def __init__(self, urls, params = {'encoding': 'utf-8'}):
         self.urls = urls

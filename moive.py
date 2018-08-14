@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import RequestException
 import threading
+import time
 def getUrl(url, data):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'
@@ -31,18 +32,18 @@ def getUrl(url, data):
     except RequestException as e:
         return None
 
-def allPage(index):
+def allPage(index, data):
     link = f'http://list.iqiyi.com/www/1/-------------11-{index}-1-iqiyi--.html'
-    return getUrl(link)
+    return getUrl(link, data)
 
 data = []
 config = {
-    "pageMaxNum":"20",
     "parseURL":"http://vip.jlsprh.com/index.php?url="
 }
 
 def main():
     tList = []
+    startTime = time.time()
     for i in range(1, 100):
         t = threading.Thread(target=allPage, args=(i, data))
         t.start()
@@ -50,7 +51,9 @@ def main():
     for tline in tList:
         tline.join()
     print('data', data)
-    with open('moive5.js', 'w+') as f:
+    endTime = time.time()
+    print('用时:', (endTime - startTime))
+    with open('moive5.js', 'w+', encoding="utf-8") as f:
         f.write(str(data))
 if __name__ == '__main__':
     main()
