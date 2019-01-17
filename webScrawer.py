@@ -32,6 +32,6 @@ class webScrawer:
             t.start()
         for t in result:
             t.join()
-    def saveFile(self):
-        with open('moive.js', 'w+') as f:
-            f.write(str(moiveData))
+    def saveFile(self, name, content):
+        with open(name, 'w+') as f:
+            f.write(str(content))
